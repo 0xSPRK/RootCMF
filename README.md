@@ -1,4 +1,4 @@
-# GKI 2.0 Custom Kernel for Nothing A001 (CMF Phone 2 Pro)
+## GKI 2.0 Custom Kernel for Nothing A001 (CMF Phone 2 Pro)
 
 Prebuilt **GKI 2.0** kernel packaged as an **AnyKernel3** ZIP, based on [Wild Kernels](https://github.com/WildKernels/GKI_KernelSU_SUSFS) and shipping **BakaSU** root with **SUSFS** and **NoMount** support. Flash it directly on the phone with Kernel Flasher, no PC required.
 
