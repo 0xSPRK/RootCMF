@@ -89,11 +89,11 @@ Back up first, then flash the newer AnyKernel3 ZIP the same way. You do not need
 
 ## Credits
 
-- [Wild Kernels](https://github.com/WildKernels/GKI_KernelSU_SUSFS) — GKI build system and features
-- [BakaSU](https://github.com/Baka-SU/BakaSU) — root solution
-- [SUSFS](https://gitlab.com/simonpunk/susfs4ksu) by simonpunk
+- [Wild Kernels](https://github.com/WildKernels/GKI_KernelSU_SUSFS)
+- [BakaSU](https://github.com/Baka-SU/BakaSU)
+- [SUSFS](https://gitlab.com/simonpunk/susfs4ksu)
 - [NoMount](https://github.com/maxsteeel/nomount)
-- [AnyKernel3](https://github.com/osm0sis/AnyKernel3) by osm0sis
+- [AnyKernel3](https://github.com/osm0sis/AnyKernel3)
 - [Kernel Flasher](https://github.com/fatalcoder524/KernelFlasher)
 
 ## Support
