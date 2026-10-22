@@ -4,15 +4,6 @@ This repository provides customized GKI (Generic Kernel Image) 2.0 kernel builds
 
 ---
 
-## Technical Stack
-
-*   **BakaSU (ReSukiSU)** — Next-generation kernel-space root solution implementation. Operating entirely within kernel-space to enforce strict isolation from userspace detection APIs. Features advanced runtime redundancy fallbacks to eliminate initialization failures.
-*   **SUSFS (Suspended File System)** — High-efficiency subsystem designed to isolate and virtualize paths, node structures, and execution points, removing traces of modification from telemetry trackers.
-*   **NoMount (ZeroMount)** — Modern architectural model enabling containerless system modifications. Avoids generic overlayfs dependencies to improve detection resistance.
-*   **Extended Attributes** — Native `TMPFS XATTR` and `POSIX ACLs` support enabled to host complex system metamodules without breaking file system integrity.
-
----
-
 ## Supported Devices
 
 *   **CMF Phone 2 Pro** (Codename: `Nothing A001`) — Target platform tracking the latest Vendor Boot / Image configurations.
