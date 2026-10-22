@@ -1,52 +1,101 @@
-# GKI 2.0 Custom Kernel Infrastructure
+# GKI 2.0 Custom Kernel for Nothing A001 (CMF Phone 2 Pro)
 
-This repository provides customized GKI (Generic Kernel Image) 2.0 kernel builds for Android devices, integrating advanced kernel-level security control and stealth mechanisms.
+Prebuilt **GKI 2.0** kernel packaged as an **AnyKernel3** ZIP, based on [Wild Kernels](https://github.com/WildKernels/GKI_KernelSU_SUSFS) and shipping **BakaSU** root with **SUSFS** and **NoMount** support. Flash it directly on the phone with Kernel Flasher, no PC required.
+
+| | |
+|---|---|
+| **Device** | CMF Phone 2 Pro (`Nothing A001`) |
+| **Kernel** | `6.1.162-android14` (GKI 2.0, KMI `android14-6.1`, SPL `2026-03`) |
+| **Root** | BakaSU v4.2.0-rc3 |
+| **Format** | AnyKernel3 ZIP (replaces `Image` inside your stock `boot`) |
 
 ---
 
-## Supported Devices
+## Features
 
-*   **CMF Phone 2 Pro** (Codename: `Nothing A001`) — Target platform tracking the latest Vendor Boot / Image configurations.
+- **BakaSU** (KernelSU fork, formerly ReSukiSU) with built-in kernel root
+- **SUSFS** — kernel-level path/mount/uname hiding
+- **NoMount** — mount-less module overlay (NoMount metamodule)
+- Everything else from Wild Kernels builds: Baseband Guard, DroidSpaces-OSS, extended networking (BBR, WireGuard, CAKE and more), NTSync, BTF / eBPF / FUSE-BPF, ptrace and unicode fixes
+
+> [!NOTE]
+> Edit this list to match exactly what is enabled in your build. See `BuildInfo` in each release for the full config.
 
 ---
 
 ## Disclaimer
 
-```text
-Modifying core system partitions and compiling custom kernels carries inherent risks of data corruption or temporary bricking. The developer accepts no responsibility for device instability, failure to boot, hardware issues, or lost alarms. Proceed exclusively under your own technical verification.
+> [!WARNING]
+> Flashing a custom kernel can cause boot loops, data loss or a temporarily unusable device. Everything here is provided **as is, for testing and educational purposes**. The author is not responsible for any damage, data loss, hardware issues or failed boots. Always keep a backup and flash at your own risk.
+
+---
+
+## Requirements
+
+**On the phone**
+- Unlocked bootloader
+- Existing root via **KernelSU** or a fork (KernelSU-Next, BakaSU, ReSukiSU, ...)
+- [Kernel Flasher](https://github.com/fatalcoder524/KernelFlasher) with root access
+- Stock firmware whose kernel version and security patch level match the release (see below)
+
+**On a PC (optional, but strongly recommended as a safety net)**
+- [Android Platform-Tools](https://developer.android.com/tools/releases/platform-tools) (`adb`, `fastboot`)
+- Google USB drivers (Windows) and a good USB cable
+- A copy of your stock `boot.img` for recovery
+
+---
+
+## Installation
+
+> [!IMPORTANT]
+> The kernel version and KMI in the release notes (for example `6.1.162-android14`) **must match your current firmware**. A mismatched build will not boot.
+
+1. **Back up your current `boot`.** In Kernel Flasher, open the *Backup* tab and save `boot` to storage. Copy it off the phone as well.
+2. **Download** the AnyKernel3 ZIP from [Releases](../../releases). If the downloaded archive contains another ZIP inside, extract it and use the inner one.
+3. **Open Kernel Flasher**, grant root, and go to the *Flash* tab.
+4. **Select the AnyKernel3 ZIP** and flash it to the **active slot**. The installer unpacks your boot image, replaces the kernel `Image` and repacks it.
+5. **Reboot** when it reports success.
+
+---
+
+## After flashing
+
+1. Open **BakaSU**. The home screen should show `Working` and your new kernel version.
+2. Install the manager from the same release, so manager and kernel driver versions match.
+3. Install the **NoMount Metamodule** (Modules → Install), then reboot.
+4. Install a **SUSFS module** (e.g. [susfs4ksu-module](https://github.com/sidex15/susfs4ksu-module)) if you want SUSFS configuration.
+
+---
+
+## Recovery
+
+If the device does not boot:
+
+1. Reboot into the bootloader (power off, then hold **Power + Volume Down**).
+2. Flash your stock boot back from a PC:
+```bash
+   fastboot flash boot boot.img
+   fastboot reboot
 ```
+   For an A/B device, flash the slot you installed to (`boot_a` or `boot_b`).
 
 ---
 
-## Installation Guide
+## Updating
 
-Follow these guidelines precisely to ensure a proper patch cycle. Modern targets feature complex slot and boot structures (e.g., `init_boot` layouts) that require runtime-driven injection via localized ramdisk patchers.
-
-### Prerequisites
-
-#### Host Machine (PC/Laptop)
-*   Configured **Android Platform-Tools** environment variables.
-*   Latest **Google USB Drivers** installed for stable interface bridging.
-*   High-quality **USB-A to Type-C** cable connection.
-
-#### Target Hardware (Phone)
-*   The device must already operate under an established root environment via baseline **KernelSU** or its variants (e.g., *KernelSU-Next*).
-
-### Deployment Procedure
-
-1. **Verify Compilation Target:** Download the latest deployment archive from the repository Releases section. **CRITICAL WARNING:** Ensure that the architecture string and patch-level version specified in the release field (e.g., `Kernel Version: 6.1.162-android14`) match your current stock system configuration exactly. Cross-matching misaligned versions will result in boot failure. Production trees track the newest production-tier firmware updates.
-2. **Launch Flashing Environment:** Open the **Kernel Flasher** interface on your phone.
-3. **Load AnyKernel3 Payload:** Navigate to the local storage path, locate the matching downloaded AnyKernel3 ZIP package, and select it.
-4. **Execute Script:** Trigger the flashing sequence. The engine will unpack the localized boot structure, perform live kernel image replacement, and re-pack the boot sequence safely.
-5. **System Initialisation:** Once the prompt displays execution success, select **Reboot** or power-cycle the smartphone manually.
-
-If the structural version checking was successful and the payload has been applied cleanly, the deployment is complete.
+Back up first, then flash the newer AnyKernel3 ZIP the same way. You do not need to restore stock `boot` between updates, but update the manager and metamodule so versions stay in sync.
 
 ---
 
-## Project Context
+## Credits
 
-*   **Developer Space:** [@0xSPRK](https://github.com)
-*   **Target Core Repository:** [GKI_KernelSU_SUSFS](https://github.com/GKI_KernelSU_SUSFS)
+- [Wild Kernels](https://github.com/WildKernels/GKI_KernelSU_SUSFS) — GKI build system and features
+- [BakaSU](https://github.com/Baka-SU/BakaSU) — root solution
+- [SUSFS](https://gitlab.com/simonpunk/susfs4ksu) by simonpunk
+- [NoMount](https://github.com/maxsteeel/nomount)
+- [AnyKernel3](https://github.com/osm0sis/AnyKernel3) by osm0sis
+- [Kernel Flasher](https://github.com/fatalcoder524/KernelFlasher)
 
-For architectural feedback or error reporting, initialize a formal tracking ticket under the Issues workspace.
+## Support
+
+Found a bug or have feedback? Open an [issue](../../issues) and include your firmware version, kernel version from the BakaSU home screen, and logs.
