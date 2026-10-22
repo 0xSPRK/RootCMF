@@ -9,8 +9,6 @@ Prebuilt **GKI 2.0** kernel packaged as an **AnyKernel3** ZIP, based on [Wild Ke
 | **Root** | BakaSU v4.2.0-rc3 |
 | **Format** | AnyKernel3 ZIP (replaces `Image` inside your stock `boot`) |
 
----
-
 ## Features
 
 - **BakaSU** (KernelSU fork, formerly ReSukiSU) with built-in kernel root
@@ -21,14 +19,10 @@ Prebuilt **GKI 2.0** kernel packaged as an **AnyKernel3** ZIP, based on [Wild Ke
 > [!NOTE]
 > Edit this list to match exactly what is enabled in your build. See `BuildInfo` in each release for the full config.
 
----
-
 ## Disclaimer
 
 > [!WARNING]
 > Flashing a custom kernel can cause boot loops, data loss or a temporarily unusable device. Everything here is provided **as is, for testing and educational purposes**. The author is not responsible for any damage, data loss, hardware issues or failed boots. Always keep a backup and flash at your own risk.
-
----
 
 ## Requirements
 
@@ -43,8 +37,6 @@ Prebuilt **GKI 2.0** kernel packaged as an **AnyKernel3** ZIP, based on [Wild Ke
 - Google USB drivers (Windows) and a good USB cable
 - A copy of your stock `boot.img` for recovery
 
----
-
 ## Installation
 
 > [!IMPORTANT]
@@ -56,16 +48,12 @@ Prebuilt **GKI 2.0** kernel packaged as an **AnyKernel3** ZIP, based on [Wild Ke
 4. **Select the AnyKernel3 ZIP** and flash it to the **active slot**. The installer unpacks your boot image, replaces the kernel `Image` and repacks it.
 5. **Reboot** when it reports success.
 
----
-
 ## After flashing
 
 1. Open **BakaSU**. The home screen should show `Working` and your new kernel version.
 2. Install the manager from the same release, so manager and kernel driver versions match.
 3. Install the **NoMount Metamodule** (Modules → Install), then reboot.
 4. Install a **SUSFS module** (e.g. [susfs4ksu-module](https://github.com/sidex15/susfs4ksu-module)) if you want SUSFS configuration.
-
----
 
 ## Recovery
 
@@ -79,13 +67,9 @@ If the device does not boot:
 ```
    For an A/B device, flash the slot you installed to (`boot_a` or `boot_b`).
 
----
-
 ## Updating
 
 Back up first, then flash the newer AnyKernel3 ZIP the same way. You do not need to restore stock `boot` between updates, but update the manager and metamodule so versions stay in sync.
-
----
 
 ## Credits
 
